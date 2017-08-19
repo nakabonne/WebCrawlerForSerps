@@ -16,5 +16,5 @@ $ cd ../WebCrawlerForSerps
 // create a binary file
 $ go build
 // execute
-$ WebCrawlerForSerps
+$ WebCrawlerForSerps -w "(words you want to scrape)"
 ```
