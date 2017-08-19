@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -67,6 +68,7 @@ func main() {
 	var word = flag.String("w", " ", "検索ワードを入力して下さい")
 	flag.Parse()
 	log.Println("検索ワード：", *word)
+	*word = strings.Replace(*word, " ", "+", -1)
 	firstURL := "https://www.google.co.jp/search?rlz=1C5CHFA_enJP693JP693&q=" + string(*word)
 	log.Println("URL：", firstURL)
 	m := newMessage()
