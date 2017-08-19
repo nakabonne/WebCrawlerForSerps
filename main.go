@@ -1,6 +1,8 @@
 package main
 
 import (
+	"flag"
+	"log"
 	"net/http"
 	"net/url"
 
@@ -62,10 +64,19 @@ func Fetch(u string) (urls []string, err error) {
 }
 
 func main() {
+	var word = flag.String("w", " ", "検索ワードを入力して下さい")
+	flag.Parse()
+	log.Println("検索ワード：", *word)
+	firstURL := "https://www.google.co.jp/search?rlz=1C5CHFA_enJP693JP693&q=" + string(*word)
+	log.Println("URL：", firstURL)
 	m := newMessage()
 	go m.execute()
 	m.req <- &request{
-		url:   "https://www.google.co.jp/search?rlz=1C5CHFA_enJP693JP693&q=go+%E3%83%81%E3%83%A3%E3%83%8D%E3%83%AB&oq=go+%E3%83%81%E3%83%A3%E3%83%8D%E3%83%AB&gs_l=psy-ab.3...735206.735963.0.736286.9.6.0.0.0.0.221.221.2-1.1.0....0...1.1.64.psy-ab..9.0.0.donDWZ7eNLc",
+		url:   firstURL,
 		depth: 2,
+	}
+
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		log.Fatal("ListenAndSearver:", err)
 	}
 }

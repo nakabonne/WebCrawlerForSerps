@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 )
 
@@ -36,7 +37,7 @@ func (m *message) execute() {
 		select {
 		case res := <-m.res:
 			if res.err == nil {
-				fmt.Printf("Success %s\n", res.url)
+				fmt.Printf("%s\n", res.url)
 			} else {
 				fmt.Fprintf(os.Stderr, "Error %s\n%v\n", res.url, res.err)
 			}
@@ -60,4 +61,5 @@ func (m *message) execute() {
 			}
 		}
 	}
+	log.Println("スクレイピング完了。サーバーを停止させて下さい。")
 }
