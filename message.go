@@ -19,6 +19,14 @@ type request struct {
 	depth int
 }
 
+func newMessage() *message {
+	return &message{
+		res:  make(chan *respons),
+		req:  make(chan *request),
+		quit: make(chan int),
+	}
+}
+
 func (m *message) execute() {
 	// ワーカーの数
 	wc := 0
