@@ -45,20 +45,29 @@ func Fetch(u string) (urls []string, err error) {
 	}
 	defer resp.Body.Close()
 
+	// 取得したhtmlを文字列で確認したい時はこれ
+	//body, err := ioutil.ReadAll(resp.Body)
+	//buf := bytes.NewBuffer(body)
+	//html := buf.String()
+	//fmt.Println(html)
+	// ---------------
+
 	doc, err := goquery.NewDocumentFromReader(resp.Body)
 	if err != nil {
 		return
 	}
 
 	urls = make([]string, 0)
-	doc.Find("a").Each(func(_ int, s *goquery.Selection) {
-		href, exists := s.Attr("href")
-		if exists {
-			reqUrl, err := baseUrl.Parse(href)
-			if err == nil {
-				urls = append(urls, reqUrl.String())
+	doc.Find(".r").Each(func(_ int, srg *goquery.Selection) {
+		srg.Find("a").Each(func(_ int, s *goquery.Selection) {
+			href, exists := s.Attr("href")
+			if exists {
+				reqUrl, err := baseUrl.Parse(href)
+				if err == nil {
+					urls = append(urls, reqUrl.String())
+				}
 			}
-		}
+		})
 	})
 
 	return
@@ -70,7 +79,7 @@ func main() {
 	log.Println("検索ワード：", *word)
 	*word = strings.Replace(*word, " ", "+", -1)
 	firstURL := "https://www.google.co.jp/search?rlz=1C5CHFA_enJP693JP693&q=" + string(*word)
-	log.Println("URL：", firstURL)
+	log.Println("検索URL：", firstURL)
 	m := newMessage()
 	go m.execute()
 	m.req <- &request{

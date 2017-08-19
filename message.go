@@ -61,5 +61,6 @@ func (m *message) execute() {
 			}
 		}
 	}
-	log.Println("スクレイピング完了。サーバーを停止させて下さい。")
+	log.Println("スクレイピング完了")
+	os.Exit(0)
 }
