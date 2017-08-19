@@ -8,13 +8,12 @@ Depending on input, the output is displayed as the result like the image below.
 
 ## Usage
 
+1, Download and install
 ```
-// clone
-$ git clone https://github.com/ryonakao/WebCrawlerForSerps.git
-// move to directory
-$ cd ../WebCrawlerForSerps
-// create a binary file
-$ go build
-// execute
+$ go get https://github.com/ryonakao/WebCrawlerForSerps.git
+```
+
+2, Execute
+```
 $ WebCrawlerForSerps -w "(words you want to scrape)"
 ```
