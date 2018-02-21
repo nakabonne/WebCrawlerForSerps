@@ -10,7 +10,7 @@ Depending on input, the output is displayed as the result like the image below.
 
 1, Download and install
 ```
-$ go get github.com/ryonakao/WebCrawlerForSerps
+$ go get github.com/nakabonne/WebCrawlerForSerps
 ```
 
 2, Execute
